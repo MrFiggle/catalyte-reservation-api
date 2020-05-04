@@ -1,4 +1,4 @@
-package io.training.catalyte.hotelapi.validation;
+package io.training.catalyte.hotelapi.domains.reservations;
 
 import static io.training.catalyte.hotelapi.constants.StringConstants.DATE_FORMAT_ERROR;
 import static java.lang.annotation.ElementType.FIELD;

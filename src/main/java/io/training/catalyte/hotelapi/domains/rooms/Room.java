@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Room {
@@ -13,10 +16,13 @@ public class Room {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Size(min = 3, message = "must have length greater than 3")
   private String roomType;
 
   private String description;
 
+  @NotNull
+  @Positive(message = "rate should be a positive value greater than zero")
   private BigDecimal rate;
 
   private boolean active;

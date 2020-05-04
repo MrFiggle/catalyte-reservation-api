@@ -1,6 +1,5 @@
 package io.training.catalyte.hotelapi.domains.reservations;
 
-import io.training.catalyte.hotelapi.validation.ValidDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

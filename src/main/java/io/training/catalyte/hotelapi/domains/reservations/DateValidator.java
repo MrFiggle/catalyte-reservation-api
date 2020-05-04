@@ -1,4 +1,4 @@
-package io.training.catalyte.hotelapi.validation;
+package io.training.catalyte.hotelapi.domains.reservations;
 
 import static io.training.catalyte.hotelapi.constants.StringConstants.DATE_FORMAT;
 
@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-
 
 public class DateValidator implements ConstraintValidator<ValidDate, String> {
 
