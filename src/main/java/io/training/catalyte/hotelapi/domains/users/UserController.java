@@ -36,7 +36,7 @@ public class UserController {
   @ApiResponses(value = {
       @ApiResponse(code = 201, message = "OK", response = User.class),
       @ApiResponse(code = 400, message = "Invalid request", response = ResponseStatusException.class)
-        })
+  })
   public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
     logger.info(" Post request received");
     return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);

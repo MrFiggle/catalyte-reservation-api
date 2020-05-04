@@ -81,7 +81,7 @@ public class RoomServiceImpl implements RoomService {
   /**
    * Updates a specified record in the database.
    *
-   * @param id the id of the record to update
+   * @param id   the id of the record to update
    * @param room the provided room information to persist
    * @return the updated room
    */
@@ -91,7 +91,7 @@ public class RoomServiceImpl implements RoomService {
 
     try {
       Optional<Room> roomToUpdate = roomRepository.findById(id);
-      if(roomToUpdate.isEmpty()){
+      if (roomToUpdate.isEmpty()) {
         throw new ResourceNotFoundException();
       } else {
         updatedRoom = roomRepository.save(room);
