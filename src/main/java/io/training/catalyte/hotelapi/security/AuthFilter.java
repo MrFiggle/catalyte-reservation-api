@@ -37,7 +37,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 
   private boolean isExcludedURI(String uri) {
-    return uri.equals("/login") || uri.equals("/error");
+    return uri.equals("/login") || uri.equals("/error") || uri.equals("/swagger-ui.html");
   }
 
   @Override
@@ -48,7 +48,7 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
     final HttpServletResponse response = (HttpServletResponse) servletResponse;
     final String authHeader = request.getHeader(AUTHORIZATION_HEADER_NAME);
 
-    if (!isExcludedURI(request.getRequestURI()) && authHeader == null || !authHeader
+    if (!isExcludedURI(request.getRequestURI()) && authHeader == null || authHeader == null || !authHeader
         .startsWith(TOKEN_PREFIX)) {
       handleError(response);
       return;
@@ -87,7 +87,8 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
         MISSING_INVALID_ERROR);
     response.setContentType(APPLICATION_JSON);
     response.setStatus(HttpStatus.UNAUTHORIZED.value());
-    response.getWriter().write(convertObjectToJson(exceptionResponse));
+    response.sendError(HttpServletResponse.SC_FORBIDDEN);
+
   }
 
 }

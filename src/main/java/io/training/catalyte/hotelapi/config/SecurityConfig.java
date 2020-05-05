@@ -11,14 +11,36 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+  private static final String[] AUTH_WHITELIST = {
+      // -- swagger ui
+      "/swagger-resources/**",
+      "/swagger-ui.html",
+      "/v2/api-docs",
+      "/webjars/**"
+  };
+
   @Bean
   public BCryptPasswordEncoder bCryptPasswordEncoder() {
     return new BCryptPasswordEncoder();
+  }
+
+  @Bean
+  public WebMvcConfigurer corsConfigurer() {
+    return new WebMvcConfigurer() {
+      @Override
+      public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+            .allowedMethods("GET", "POST", "PUT", "DELETE")
+            .allowedOrigins("http://localhost:3000");
+      }
+    };
   }
 
   @Override
@@ -26,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http
         .addFilterBefore(new AuthFilter(), AuthFilter.class)
         .authorizeRequests()
+        .antMatchers(AUTH_WHITELIST).permitAll()
         .antMatchers(HttpMethod.GET).permitAll()
         .antMatchers(HttpMethod.POST, "/rooms").hasAuthority(MANAGER_ROLE_TYPE)
         .antMatchers(HttpMethod.PUT, "/rooms").hasAuthority(MANAGER_ROLE_TYPE)
@@ -38,9 +61,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   public void configure(WebSecurity web) {
     web.ignoring().antMatchers(HttpMethod.OPTIONS);
-    web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources",
+    web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**",
         "/configuration/security", "/swagger-ui.html", "/webjars/**", "/login");
-    web.ignoring().antMatchers(HttpMethod.POST, "/users");
   }
 
 }

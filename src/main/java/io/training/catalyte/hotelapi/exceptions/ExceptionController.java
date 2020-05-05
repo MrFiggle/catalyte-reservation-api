@@ -1,5 +1,6 @@
 package io.training.catalyte.hotelapi.exceptions;
 
+import static io.training.catalyte.hotelapi.constants.StringConstants.BAD_REQUEST;
 import static io.training.catalyte.hotelapi.constants.StringConstants.NOT_FOUND;
 import static io.training.catalyte.hotelapi.constants.StringConstants.SERVER_ERROR;
 
@@ -48,6 +49,13 @@ public class ExceptionController {
     ExceptionResponse response = new ExceptionResponse(SERVER_ERROR, new Date(),
         exception.getMessage());
     return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+
+  @ExceptionHandler(BadRequest.class)
+  protected ResponseEntity<ExceptionResponse> badRequest(BadRequest exception) {
+    ExceptionResponse response = new ExceptionResponse(BAD_REQUEST, new Date(),
+        exception.getMessage());
+    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
   }
 
 }

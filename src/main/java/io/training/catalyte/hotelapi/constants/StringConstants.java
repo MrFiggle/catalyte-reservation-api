@@ -8,6 +8,7 @@ public class StringConstants {
 
   public static final String NOT_FOUND = "Not Found";
   public static final String SERVER_ERROR = "Server Error";
+  public static final String BAD_REQUEST = "Bad Request, check your input and try again";
   public static final String REQUIRED_FIELD = " is a required field";
   public static final String PASSWORD_INVALID = "Password should be at least 8 characters.";
   public static final String INVALID_ZIP = "Zip should be a valid 5 or 9 digit zip code.";
