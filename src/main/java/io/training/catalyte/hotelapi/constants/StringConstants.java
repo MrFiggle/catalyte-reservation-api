@@ -21,7 +21,7 @@ public class StringConstants {
   // Auth
   public static final String UNAUTHORIZED = "Unauthorized";
   public static final String INVALID_EMAIL_PASSWORD = "Invalid email or password.";
-  public static final String ISSUER = "gcapi";
+  public static final String ISSUER = "hotel-api";
   public static final String SECRET_KEY = "secret";
   public static final String CLAIMS_ATTRIBUTE = "claims";
   public static final String EMAIL_ATTRIBUTE = "email";
