@@ -51,12 +51,12 @@ public class RoomController {
    * @return a room by the id provided and 200 status code
    * @throws Exception
    */
-  @GetMapping("/id")
+  @GetMapping("/{id}")
   @ApiOperation("Retrieve a room by id")
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "OK", response = Room.class)
   })
-  public ResponseEntity<Room> getRoomById(Long id) {
+  public ResponseEntity<Room> getRoomById(@PathVariable Long id) {
     logger.info(" Get all request received");
     return new ResponseEntity<>(roomService.getById(id), HttpStatus.OK);
   }
