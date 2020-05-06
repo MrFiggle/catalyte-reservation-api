@@ -1,4 +1,4 @@
-package io.training.catalyte.hotelapi.domains.rooms;
+package io.training.catalyte.hotelapi.domains.roomtypes;
 
 import java.math.BigDecimal;
 import javax.persistence.Entity;
@@ -10,14 +10,14 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Room {
+public class RoomType {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Size(min = 3, message = "must have length greater than 3")
-  private String roomType;
+  private String name;
 
   private String description;
 
@@ -27,14 +27,14 @@ public class Room {
 
   private boolean active;
 
-  public Room(String roomType, String description, BigDecimal rate, boolean active) {
-    this.roomType = roomType;
+  public RoomType(String name, String description, BigDecimal rate, boolean active) {
+    this.name = name;
     this.description = description;
     this.rate = rate;
     this.active = active;
   }
 
-  public Room() {
+  public RoomType() {
   }
 
   public Long getId() {
@@ -45,12 +45,12 @@ public class Room {
     this.id = id;
   }
 
-  public String getRoomType() {
-    return roomType;
+  public String getName() {
+    return name;
   }
 
-  public void setRoomType(String roomType) {
-    this.roomType = roomType;
+  public void setName(String roomType) {
+    this.name = roomType;
   }
 
   public String getDescription() {
@@ -86,18 +86,18 @@ public class Room {
       return false;
     }
 
-    Room room = (Room) o;
+    RoomType roomType = (RoomType) o;
 
-    if (isActive() != room.isActive()) {
+    if (isActive() != roomType.isActive()) {
       return false;
     }
-    if (!getRoomType().equals(room.getRoomType())) {
+    if (!getName().equals(roomType.getName())) {
       return false;
     }
-    if (!getDescription().equals(room.getDescription())) {
+    if (!getDescription().equals(roomType.getDescription())) {
       return false;
     }
-    return getRate().equals(room.getRate());
+    return getRate().equals(roomType.getRate());
   }
 
   @Override
@@ -112,7 +112,7 @@ public class Room {
   public String toString() {
     return "Room{" +
         "id=" + id +
-        ", roomType='" + roomType + '\'' +
+        ", roomType='" + name + '\'' +
         ", description='" + description + '\'' +
         ", rate=" + rate +
         ", active=" + active +

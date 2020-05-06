@@ -1,4 +1,4 @@
-package io.training.catalyte.hotelapi.domains.rooms;
+package io.training.catalyte.hotelapi.domains.roomtypes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +11,12 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RoomServiceImpl implements RoomService {
+public class RoomTypeServiceImpl implements RoomTypeService {
 
-  private final Logger logger = LoggerFactory.getLogger(RoomServiceImpl.class);
+  private final Logger logger = LoggerFactory.getLogger(RoomTypeServiceImpl.class);
 
   @Autowired
-  private RoomRepository roomRepository;
+  private RoomTypeRepository roomTypeRepository;
 
   /**
    * Retrieves all rooms from the database.
@@ -24,16 +24,16 @@ public class RoomServiceImpl implements RoomService {
    * @return a list of all rooms.
    */
   @Override
-  public List<Room> getAll() {
-    List<Room> roomList = new ArrayList<>();
+  public List<RoomType> getAll() {
+    List<RoomType> roomTypeList = new ArrayList<>();
 
     try {
-      roomList = roomRepository.findAll();
+      roomTypeList = roomTypeRepository.findAll();
     } catch (DataAccessException e) {
       logger.error(e.getMessage());
     }
 
-    return roomList;
+    return roomTypeList;
   }
 
   /**
@@ -43,11 +43,11 @@ public class RoomServiceImpl implements RoomService {
    * @return the specified room
    */
   @Override
-  public Room getById(Long id) {
-    Optional<Room> room = Optional.ofNullable(null);
+  public RoomType getById(Long id) {
+    Optional<RoomType> room = Optional.ofNullable(null);
 
     try {
-      room = roomRepository.findById(id);
+      room = roomTypeRepository.findById(id);
     } catch (DataAccessException e) {
       logger.error(e.getMessage());
     }
@@ -62,44 +62,44 @@ public class RoomServiceImpl implements RoomService {
   /**
    * Persists a new room to the database.
    *
-   * @param room the room object to persist
+   * @param roomType the room object to persist
    * @return the persisted room
    */
   @Override
-  public Room createRoom(Room room) {
-    Room postedRoom = null;
+  public RoomType createRoom(RoomType roomType) {
+    RoomType postedRoomType = null;
 
     try {
-      postedRoom = roomRepository.save(room);
+      postedRoomType = roomTypeRepository.save(roomType);
     } catch (DataAccessException e) {
       logger.error(e.getMessage());
     }
 
-    return postedRoom;
+    return postedRoomType;
   }
 
   /**
    * Updates a specified record in the database.
    *
    * @param id   the id of the record to update
-   * @param room the provided room information to persist
+   * @param roomType the provided room information to persist
    * @return the updated room
    */
   @Override
-  public Room updateRoom(Long id, Room room) {
-    Room updatedRoom = null;
+  public RoomType updateRoom(Long id, RoomType roomType) {
+    RoomType updatedRoomType = null;
 
     try {
-      Optional<Room> roomToUpdate = roomRepository.findById(id);
+      Optional<RoomType> roomToUpdate = roomTypeRepository.findById(id);
       if (roomToUpdate.isEmpty()) {
         throw new ResourceNotFoundException();
       } else {
-        updatedRoom = roomRepository.save(room);
+        updatedRoomType = roomTypeRepository.save(roomType);
       }
     } catch (DataAccessException e) {
       logger.error(e.getMessage());
     }
 
-    return updatedRoom;
+    return updatedRoomType;
   }
 }

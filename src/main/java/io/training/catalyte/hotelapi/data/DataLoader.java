@@ -2,8 +2,8 @@ package io.training.catalyte.hotelapi.data;
 
 import io.training.catalyte.hotelapi.domains.reservations.Reservation;
 import io.training.catalyte.hotelapi.domains.reservations.ReservationRepository;
-import io.training.catalyte.hotelapi.domains.rooms.Room;
-import io.training.catalyte.hotelapi.domains.rooms.RoomRepository;
+import io.training.catalyte.hotelapi.domains.roomtypes.RoomType;
+import io.training.catalyte.hotelapi.domains.roomtypes.RoomTypeRepository;
 import io.training.catalyte.hotelapi.domains.users.User;
 import io.training.catalyte.hotelapi.domains.users.UserRepository;
 import java.math.BigDecimal;
@@ -23,7 +23,7 @@ public class DataLoader implements CommandLineRunner {
   private UserRepository userRepository;
 
   @Autowired
-  private RoomRepository roomRepository;
+  private RoomTypeRepository roomTypeRepository;
 
   @Autowired
   private ReservationRepository reservationRepository;
@@ -46,18 +46,24 @@ public class DataLoader implements CommandLineRunner {
   }
 
   private void loadRooms() {
-    roomRepository.save(new Room("King", "Single king non-smoking", new BigDecimal(99.99), true));
-    roomRepository.save(new Room("King", "Single king non-smoking", new BigDecimal(99.99), true));
-    roomRepository.save(new Room("King", "Single king non-smoking", new BigDecimal(99.99), true));
-    roomRepository.save(new Room("Queen", "Single queen non-smoking", new BigDecimal(79.99), true));
-    roomRepository.save(new Room("Queen", "Single queen non-smoking", new BigDecimal(79.99), true));
-    roomRepository.save(new Room("Queen", "Single queen non-smoking", new BigDecimal(79.99), true));
-    roomRepository
-        .save(new Room("Queen Double", "Two queens non-smoking", new BigDecimal(129.99), true));
-    roomRepository
-        .save(new Room("Queen Double", "Two queens non-smoking", new BigDecimal(129.99), true));
-    roomRepository
-        .save(new Room("Queen Double", "Two queens non-smoking", new BigDecimal(129.99), true));
+    roomTypeRepository
+        .save(new RoomType("King", "Single king non-smoking", new BigDecimal(99.99), true));
+    roomTypeRepository
+        .save(new RoomType("King", "Single king non-smoking", new BigDecimal(99.99), true));
+    roomTypeRepository
+        .save(new RoomType("King", "Single king non-smoking", new BigDecimal(99.99), true));
+    roomTypeRepository
+        .save(new RoomType("Queen", "Single queen non-smoking", new BigDecimal(79.99), true));
+    roomTypeRepository
+        .save(new RoomType("Queen", "Single queen non-smoking", new BigDecimal(79.99), true));
+    roomTypeRepository
+        .save(new RoomType("Queen", "Single queen non-smoking", new BigDecimal(79.99), true));
+    roomTypeRepository
+        .save(new RoomType("Queen Double", "Two queens non-smoking", new BigDecimal(129.99), true));
+    roomTypeRepository
+        .save(new RoomType("Queen Double", "Two queens non-smoking", new BigDecimal(129.99), true));
+    roomTypeRepository
+        .save(new RoomType("Queen Double", "Two queens non-smoking", new BigDecimal(129.99), true));
   }
 
   private void loadReservations() {
