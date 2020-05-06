@@ -1,10 +1,15 @@
 package io.training.catalyte.hotelapi.domains.roomtypes;
 
-import static io.training.catalyte.hotelapi.RoomHelper.ROOMS_PATH_WITH_SLASH;
-import static io.training.catalyte.hotelapi.RoomHelper.ROOM_ACTIVE_JSON;
-import static io.training.catalyte.hotelapi.RoomHelper.ROOM_DESCRIPTION_JSON;
-import static io.training.catalyte.hotelapi.RoomHelper.ROOM_RATE_JSON;
-import static io.training.catalyte.hotelapi.RoomHelper.ROOM_NAME_JSON;
+import static io.training.catalyte.hotelapi.RoomHelper.ROOM_TYPES_PATH;
+import static io.training.catalyte.hotelapi.RoomHelper.ROOM_TYPES_PATH_WITH_SLASH;
+import static io.training.catalyte.hotelapi.RoomHelper.ROOM_TYPE_ACTIVE_JSON;
+import static io.training.catalyte.hotelapi.RoomHelper.ROOM_TYPE_DESCRIPTION_JSON;
+import static io.training.catalyte.hotelapi.RoomHelper.ROOM_TYPE_NAME_JSON;
+import static io.training.catalyte.hotelapi.RoomHelper.ROOM_TYPE_RATE_JSON;
+import static io.training.catalyte.hotelapi.RoomHelper.VALID_TEST_ACTIVE;
+import static io.training.catalyte.hotelapi.RoomHelper.VALID_TEST_DESCRIPTION;
+import static io.training.catalyte.hotelapi.RoomHelper.VALID_TEST_RATE;
+import static io.training.catalyte.hotelapi.RoomHelper.VALID_TEST_ROOMTYPE_NAME;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -12,7 +17,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.training.catalyte.hotelapi.LoginHelper;
 import io.training.catalyte.hotelapi.RoomHelper;
-import java.math.BigDecimal;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +29,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class GetRoomTypeByIdTests {
+public class GetRoomTypesTests {
 
   @Autowired
   private static MockMvc mockMvc;
@@ -38,15 +42,11 @@ public class GetRoomTypeByIdTests {
 
   LoginHelper loginHelper = new LoginHelper();
   RoomType testRoomType = null;
-  private final String TEST_DESCRIPTION = "test description";
-  private final String TEST_ROOMTYPE_NAME = "test room type";
-  private final Double TEST_RATE = 100.00;
-  private final boolean TEST_ACTIVE = true;
 
   @Before
   public void setup() {
     mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
-    testRoomType = new RoomType(TEST_ROOMTYPE_NAME, TEST_DESCRIPTION, new BigDecimal(TEST_RATE), TEST_ACTIVE);
+    testRoomType = RoomHelper.constructValidRoom();
   }
 
   @Test
@@ -54,13 +54,13 @@ public class GetRoomTypeByIdTests {
     String token = loginHelper.authenticateAndReturnToken(mockMvc, true);
     RoomType postedRoomType = RoomHelper.postRoom(mockMvc, testRoomType);
 
-    mockMvc.perform(get(ROOMS_PATH_WITH_SLASH + postedRoomType.getId())
+    mockMvc.perform(get(ROOM_TYPES_PATH_WITH_SLASH + postedRoomType.getId())
         .header("authentication", "Bearer " + token))
         .andExpect(status().isOk())
-        .andExpect(jsonPath(ROOM_NAME_JSON).value(TEST_ROOMTYPE_NAME))
-        .andExpect(jsonPath(ROOM_DESCRIPTION_JSON).value(TEST_DESCRIPTION))
-        .andExpect(jsonPath(ROOM_RATE_JSON).value(TEST_RATE))
-        .andExpect(jsonPath(ROOM_ACTIVE_JSON).value(TEST_ACTIVE))
+        .andExpect(jsonPath(ROOM_TYPE_NAME_JSON).value(VALID_TEST_ROOMTYPE_NAME))
+        .andExpect(jsonPath(ROOM_TYPE_DESCRIPTION_JSON).value(VALID_TEST_DESCRIPTION))
+        .andExpect(jsonPath(ROOM_TYPE_RATE_JSON).value(VALID_TEST_RATE))
+        .andExpect(jsonPath(ROOM_TYPE_ACTIVE_JSON).value(VALID_TEST_ACTIVE))
         .andReturn();
   }
 
@@ -69,15 +69,37 @@ public class GetRoomTypeByIdTests {
     String token = loginHelper.authenticateAndReturnToken(mockMvc, false);
     RoomType postedRoomType = RoomHelper.postRoom(mockMvc, testRoomType);
 
-    mockMvc.perform(get(ROOMS_PATH_WITH_SLASH + postedRoomType.getId())
+    mockMvc.perform(get(ROOM_TYPES_PATH_WITH_SLASH + postedRoomType.getId())
         .header("authentication", "Bearer " + token))
         .andExpect(status().isOk())
-        .andExpect(jsonPath(ROOM_NAME_JSON).value(TEST_ROOMTYPE_NAME))
-        .andExpect(jsonPath(ROOM_DESCRIPTION_JSON).value(TEST_DESCRIPTION))
-        .andExpect(jsonPath(ROOM_RATE_JSON).value(TEST_RATE))
-        .andExpect(jsonPath(ROOM_ACTIVE_JSON).value(TEST_ACTIVE))
+        .andExpect(jsonPath(ROOM_TYPE_NAME_JSON).value(VALID_TEST_ROOMTYPE_NAME))
+        .andExpect(jsonPath(ROOM_TYPE_DESCRIPTION_JSON).value(VALID_TEST_DESCRIPTION))
+        .andExpect(jsonPath(ROOM_TYPE_RATE_JSON).value(VALID_TEST_RATE))
+        .andExpect(jsonPath(ROOM_TYPE_ACTIVE_JSON).value(VALID_TEST_ACTIVE))
         .andReturn();
   }
+
+  @Test
+  public void getByIdThatDoesNotExistsReturns404() throws Exception {
+    String token = loginHelper.authenticateAndReturnToken(mockMvc, false);
+
+    mockMvc.perform(get(ROOM_TYPES_PATH_WITH_SLASH + 9001)
+        .header("authentication", "Bearer " + token))
+        .andExpect(status().isNotFound())
+        .andReturn();
+  }
+
+  @Test
+  public void getAllReturns200AndNotEmpty() throws Exception {
+    String token = loginHelper.authenticateAndReturnToken(mockMvc, false);
+
+    mockMvc.perform(get(ROOM_TYPES_PATH)
+        .header("authentication", "Bearer " + token))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").isNotEmpty())
+        .andReturn();
+  }
+
 // This test is giving a 200 with a garbage token, which is weird!  Seems to be a mockmvc issue I haven't sorted out yet
 //  @Test
 //  public void getByIdNotAuthenticatedReturns403() throws Exception {
