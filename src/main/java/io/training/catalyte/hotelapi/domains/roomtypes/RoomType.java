@@ -1,5 +1,8 @@
 package io.training.catalyte.hotelapi.domains.roomtypes;
 
+import static io.training.catalyte.hotelapi.constants.StringConstants.NAME_VALIDATION_ERROR;
+import static io.training.catalyte.hotelapi.constants.StringConstants.RATE_VALIDATION_ERROR;
+
 import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,13 +19,13 @@ public class RoomType {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Size(min = 3, message = "must have length greater than 3")
+  @Size(min = 3, message = NAME_VALIDATION_ERROR)
   private String name;
 
   private String description;
 
   @NotNull
-  @Positive(message = "rate should be a positive value greater than zero")
+  @Positive(message = RATE_VALIDATION_ERROR)
   private BigDecimal rate;
 
   private boolean active;

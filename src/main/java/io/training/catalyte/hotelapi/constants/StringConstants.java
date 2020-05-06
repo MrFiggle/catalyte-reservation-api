@@ -2,21 +2,9 @@ package io.training.catalyte.hotelapi.constants;
 
 public class StringConstants {
 
-  public static final String DATE_FORMAT = "MM-dd-yyyy";
-  public static final String DATE_FORMAT_ERROR = "date did not meet required format of MM-dd-yyyy";
-
-
   public static final String NOT_FOUND = "Not Found";
   public static final String SERVER_ERROR = "Server Error";
   public static final String BAD_REQUEST = "Bad Request, check your input and try again";
-  public static final String REQUIRED_FIELD = " is a required field";
-  public static final String PASSWORD_INVALID = "Password should be at least 8 characters.";
-  public static final String INVALID_ZIP = "Zip should be a valid 5 or 9 digit zip code.";
-  public static final String EMAIL_INVALID = "Email should be a well-formed email address.";
-  public static final String INVALID_NUMBER = " must be greater than or equal to 0.";
-  public static final String SERVER_ERROR_MESSAGE = "An unexpected error occurred.";
-  public static final String DATABASE_EXCEPTION = "Database exception";
-  public static final String CONFLICT_ERROR = "Conflict with information currently stored in the database";
 
   // Auth
   public static final String UNAUTHORIZED = "Unauthorized";
@@ -33,12 +21,17 @@ public class StringConstants {
   public static final String MISSING_INVALID_ERROR = "Missing or invalid Authorization header";
   public static final String APPLICATION_JSON = "application/json";
 
-  // User Domain
-  public static final String USER_NOT_FOUND_LOG = "Unable to retrieve user with id of ";
-  public static final String USER_NOT_FOUND = "User not found.";
-  public static final String USER_EMAIL_CONFLICT_LOG = "Attempted addUser but a conflict occurred with email: ";
-  public static final String USER_EMAIL_CONFLICT = "Email already in use.";
-  public static final String INVALID_ROLES_LOG = "Invalid roles provided";
-  public static final String INVALID_ROLES = "Roles should be ADMIN and/or EMPLOYEE.";
-  public static final String ERROR_LOG = "Error: ";
+  // RoomType
+  public static final String NAME_VALIDATION_ERROR = "must have length greater than 3";
+  public static final String RATE_VALIDATION_ERROR = "rate should be a positive value greater than zero";
+
+  // Reservations
+  public static final String GUEST_EMAIL_VALIDATION_ERROR = "must be an email format";
+  public static final String POSITIVE_ID_VALIDATION_ERROR = "id must be a postive";
+  public static final String NUMBER_OF_NIGHTS_POSITIVE_VALIDATION_ERROR = "must be an email format";
+  public static final String DATE_FORMAT = "MM-dd-yyyy";
+  public static final String DATE_FORMAT_ERROR = "date did not meet required format of MM-dd-yyyy";
+  public static final String ROOM_TYPE_ID_NULL_ERROR = "NotNull.reservation.roomTypeId";
+  public static final String GUEST_EMAIL_BLANK_ERROR = "NotBlank.reservation.guestEmail";
+
 }

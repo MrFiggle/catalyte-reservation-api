@@ -1,5 +1,9 @@
 package io.training.catalyte.hotelapi.domains.reservations;
 
+import static io.training.catalyte.hotelapi.constants.StringConstants.GUEST_EMAIL_VALIDATION_ERROR;
+import static io.training.catalyte.hotelapi.constants.StringConstants.NUMBER_OF_NIGHTS_POSITIVE_VALIDATION_ERROR;
+import static io.training.catalyte.hotelapi.constants.StringConstants.POSITIVE_ID_VALIDATION_ERROR;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,28 +30,28 @@ public class Reservation {
   private String user;
 
   @NotBlank
-  @Email
+  @Email(message = GUEST_EMAIL_VALIDATION_ERROR)
   private String guestEmail;
 
-  @Positive
+  @Positive(message = POSITIVE_ID_VALIDATION_ERROR)
   @NotNull
-  private Long roomId;
+  private Long roomTypeId;
 
-  @ValidDate
+  @ValidDate()
   private String checkInDate;
 
-  @Positive
+  @Positive(message = NUMBER_OF_NIGHTS_POSITIVE_VALIDATION_ERROR)
   @NotNull
   private int numberOfNights;
 
   public Reservation() {
   }
 
-  public Reservation(String user, String guestEmail, Long roomId, String checkInDate,
+  public Reservation(String user, String guestEmail, Long roomTypeId, String checkInDate,
       int numberOfNights) {
     this.user = user;
     this.guestEmail = guestEmail;
-    this.roomId = roomId;
+    this.roomTypeId = roomTypeId;
     this.checkInDate = checkInDate;
     this.numberOfNights = numberOfNights;
   }
@@ -76,12 +80,12 @@ public class Reservation {
     this.guestEmail = guestEmail;
   }
 
-  public Long getRoomId() {
-    return roomId;
+  public Long getRoomTypeId() {
+    return roomTypeId;
   }
 
-  public void setRoomId(Long roomId) {
-    this.roomId = roomId;
+  public void setRoomTypeId(Long roomId) {
+    this.roomTypeId = roomId;
   }
 
   public String getCheckInDate() {
