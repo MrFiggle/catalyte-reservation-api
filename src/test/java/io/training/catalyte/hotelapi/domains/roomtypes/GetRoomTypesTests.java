@@ -51,7 +51,7 @@ public class GetRoomTypesTests {
 
   @Test
   public void getByIdAuthenticatedAsManagerHappyPath() throws Exception {
-    String token = loginHelper.authenticateAndReturnToken(mockMvc, true);
+    String token = LoginHelper.authenticateAndReturnToken(mockMvc, true);
     RoomType postedRoomType = RoomHelper.postRoom(mockMvc, testRoomType);
 
     mockMvc.perform(get(ROOM_TYPES_PATH_WITH_SLASH + postedRoomType.getId())
@@ -66,7 +66,7 @@ public class GetRoomTypesTests {
 
   @Test
   public void getByIdAuthenticatedAsEmployeePath() throws Exception {
-    String token = loginHelper.authenticateAndReturnToken(mockMvc, false);
+    String token = LoginHelper.authenticateAndReturnToken(mockMvc, false);
     RoomType postedRoomType = RoomHelper.postRoom(mockMvc, testRoomType);
 
     mockMvc.perform(get(ROOM_TYPES_PATH_WITH_SLASH + postedRoomType.getId())
@@ -81,7 +81,7 @@ public class GetRoomTypesTests {
 
   @Test
   public void getByIdThatDoesNotExistsReturns404() throws Exception {
-    String token = loginHelper.authenticateAndReturnToken(mockMvc, false);
+    String token = LoginHelper.authenticateAndReturnToken(mockMvc, false);
 
     mockMvc.perform(get(ROOM_TYPES_PATH_WITH_SLASH + 9001)
         .header("authentication", "Bearer " + token))
@@ -91,7 +91,7 @@ public class GetRoomTypesTests {
 
   @Test
   public void getAllReturns200AndNotEmpty() throws Exception {
-    String token = loginHelper.authenticateAndReturnToken(mockMvc, false);
+    String token = LoginHelper.authenticateAndReturnToken(mockMvc, false);
 
     mockMvc.perform(get(ROOM_TYPES_PATH)
         .header("authentication", "Bearer " + token))

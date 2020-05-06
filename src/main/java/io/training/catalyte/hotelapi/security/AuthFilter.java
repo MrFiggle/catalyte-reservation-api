@@ -48,7 +48,8 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
     final HttpServletResponse response = (HttpServletResponse) servletResponse;
     final String authHeader = request.getHeader(AUTHORIZATION_HEADER_NAME);
 
-    if (!isExcludedURI(request.getRequestURI()) && authHeader == null || authHeader == null || !authHeader
+    if (!isExcludedURI(request.getRequestURI()) && authHeader == null || authHeader == null
+        || !authHeader
         .startsWith(TOKEN_PREFIX)) {
       handleError(response);
       return;

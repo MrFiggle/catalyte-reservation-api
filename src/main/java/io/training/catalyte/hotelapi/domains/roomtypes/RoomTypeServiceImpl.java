@@ -81,7 +81,7 @@ public class RoomTypeServiceImpl implements RoomTypeService {
   /**
    * Updates a specified record in the database.
    *
-   * @param id   the id of the record to update
+   * @param id       the id of the record to update
    * @param roomType the provided room information to persist
    * @return the updated room
    */

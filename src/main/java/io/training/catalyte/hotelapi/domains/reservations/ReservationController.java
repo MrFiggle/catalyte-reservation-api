@@ -106,7 +106,7 @@ public class ReservationController {
   /**
    * This method deletes an existing reservation record
    *
-   * @param id          of the reservation to be deleted
+   * @param id of the reservation to be deleted
    * @return 204 no content
    * @throws Exception
    */

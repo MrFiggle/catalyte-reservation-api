@@ -22,9 +22,9 @@ public class RoomHelper {
   public static final Double VALID_TEST_RATE = 100.00;
   public static final boolean VALID_TEST_ACTIVE = true;
 
-  public static RoomType constructValidRoom(){
-   return new RoomType(VALID_TEST_ROOMTYPE_NAME, VALID_TEST_DESCRIPTION, new BigDecimal(
-       VALID_TEST_RATE), VALID_TEST_ACTIVE);
+  public static RoomType constructValidRoom() {
+    return new RoomType(VALID_TEST_ROOMTYPE_NAME, VALID_TEST_DESCRIPTION, new BigDecimal(
+        VALID_TEST_RATE), VALID_TEST_ACTIVE);
   }
 
   public static RoomType postRoom(MockMvc mockMvc, RoomType roomType) throws Exception {

@@ -82,7 +82,7 @@ public class RoomTypeController {
   /**
    * This method updates an existing roomtype record
    *
-   * @param id   of the roomtype to be updated
+   * @param id       of the roomtype to be updated
    * @param roomType updated roomtype information
    * @return updated roomtype and 200 status code
    * @throws Exception
@@ -93,7 +93,8 @@ public class RoomTypeController {
       @ApiResponse(code = 200, message = "OK", response = RoomType.class),
       @ApiResponse(code = 400, message = "Invalid request", response = ResponseStatusException.class)
   })
-  public ResponseEntity<RoomType> updateRoomType(@Valid @RequestBody RoomType roomType, @PathVariable Long id) {
+  public ResponseEntity<RoomType> updateRoomType(@Valid @RequestBody RoomType roomType,
+      @PathVariable Long id) {
     logger.info(" Put request received");
     return new ResponseEntity<>(roomTypeService.updateRoom(id, roomType), HttpStatus.OK);
   }

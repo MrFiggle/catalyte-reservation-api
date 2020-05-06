@@ -1,6 +1,6 @@
 package io.training.catalyte.hotelapi;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
