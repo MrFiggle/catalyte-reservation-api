@@ -5,5 +5,10 @@ This API will be hosted on localhost:8080 and requires access to a Postgres data
 
 ### Autoloaded Users
 
-new User("manager@hotelapi.com", "password", "manager")
-new User("employee@hotelapi.com", "password", "employee")
+#### Manager
+username: manager@hotelapi.com
+password: password
+
+#### Employee
+username: employee@hotelapi.com
+password: password

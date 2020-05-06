@@ -7,8 +7,6 @@ import io.training.catalyte.hotelapi.domains.roomtypes.RoomTypeRepository;
 import io.training.catalyte.hotelapi.domains.users.User;
 import io.training.catalyte.hotelapi.domains.users.UserRepository;
 import java.math.BigDecimal;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,8 +14,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DataLoader implements CommandLineRunner {
-
-  private final Logger logger = LoggerFactory.getLogger(DataLoader.class);
 
   @Autowired
   private UserRepository userRepository;
@@ -34,7 +30,7 @@ public class DataLoader implements CommandLineRunner {
   @Override
   public void run(String... strings) {
     loadUsers();
-    loadRooms();
+    loadRoomTypes();
     loadReservations();
   }
 
@@ -45,25 +41,21 @@ public class DataLoader implements CommandLineRunner {
     userRepository.save(new User("employee@hotelapi.com", encodedPass, "employee"));
   }
 
-  private void loadRooms() {
+  private void loadRoomTypes() {
     roomTypeRepository
-        .save(new RoomType("King", "Single king non-smoking", new BigDecimal(99.99), true));
+        .save(new RoomType("King", "Single king non-smoking", new BigDecimal(129.99), true));
     roomTypeRepository
-        .save(new RoomType("King", "Single king non-smoking", new BigDecimal(99.99), true));
+        .save(new RoomType("King Double", "Double king non-smoking", new BigDecimal(149.99), true));
     roomTypeRepository
-        .save(new RoomType("King", "Single king non-smoking", new BigDecimal(99.99), true));
+        .save(new RoomType("Executive Suite", "A well appointed room with a view", new BigDecimal(199.99), true));
     roomTypeRepository
-        .save(new RoomType("Queen", "Single queen non-smoking", new BigDecimal(79.99), true));
+        .save(new RoomType("Honeymoon Suite", "Large room with a hot tub, complimentary bottle of bubbly", new BigDecimal(179.99), true));
     roomTypeRepository
-        .save(new RoomType("Queen", "Single queen non-smoking", new BigDecimal(79.99), true));
+        .save(new RoomType("Queen", "Single queen non-smoking", new BigDecimal(99.99), true));
     roomTypeRepository
-        .save(new RoomType("Queen", "Single queen non-smoking", new BigDecimal(79.99), true));
+        .save(new RoomType("Queen Double", "Two queens non-smoking", new BigDecimal(109.99), true));
     roomTypeRepository
-        .save(new RoomType("Queen Double", "Two queens non-smoking", new BigDecimal(129.99), true));
-    roomTypeRepository
-        .save(new RoomType("Queen Double", "Two queens non-smoking", new BigDecimal(129.99), true));
-    roomTypeRepository
-        .save(new RoomType("Queen Double", "Two queens non-smoking", new BigDecimal(129.99), true));
+        .save(new RoomType("Extended Stay", "Small room with kitchenette, small stove and full size fridge", new BigDecimal(69.99), true));
   }
 
   private void loadReservations() {
