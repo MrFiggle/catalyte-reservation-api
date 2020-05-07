@@ -3,12 +3,14 @@
 ## Database
 This API will be hosted on localhost:8080 and requires access to a Postgres database on port 5432.
 
+List of end points can be found in Swagger docs at localhost:8080/swagger-ui.html.
+
 ### Autoloaded Users
 
 #### Manager
-username: manager@hotelapi.com
+email: manager@hotelapi.com
 password: password
 
 #### Employee
-username: employee@hotelapi.com
+email: employee@hotelapi.com
 password: password
