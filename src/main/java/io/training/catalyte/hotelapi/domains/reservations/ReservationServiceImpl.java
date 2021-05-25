@@ -1,8 +1,5 @@
 package io.training.catalyte.hotelapi.domains.reservations;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +7,18 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 public class ReservationServiceImpl implements ReservationService {
 
   private final Logger logger = LoggerFactory.getLogger(ReservationServiceImpl.class);
 
-  @Autowired
-  private ReservationRepository reservationRepository;
+  @Autowired private ReservationRepository reservationRepository;
 
   /**
    * Retrieves all reservations from the database.
@@ -33,7 +35,9 @@ public class ReservationServiceImpl implements ReservationService {
       logger.error(e.getMessage());
     }
 
-    return reservationList;
+    return reservationList.stream()
+        .sorted(Comparator.comparing(Reservation::getId))
+        .collect(Collectors.toList());
   }
 
   /**
@@ -44,7 +48,7 @@ public class ReservationServiceImpl implements ReservationService {
    */
   @Override
   public Reservation getById(Long id) {
-    Optional<Reservation> reservation = Optional.ofNullable(null);
+    Optional<Reservation> reservation = Optional.empty();
 
     try {
       reservation = reservationRepository.findById(id);
@@ -81,26 +85,25 @@ public class ReservationServiceImpl implements ReservationService {
   /**
    * Updates a specified record in the database.
    *
-   * @param id          the id of the record to update
+   * @param id the id of the record to update
    * @param reservation the provided reservation information to persist
    * @return the updated reservation
    */
   @Override
   public Reservation updateReservation(Long id, Reservation reservation) {
-    Reservation updatedReservation = null;
-
     try {
       Optional<Reservation> reservationToUpdate = reservationRepository.findById(id);
       if (reservationToUpdate.isEmpty()) {
         throw new ResourceNotFoundException();
       } else {
-        updatedReservation = reservationRepository.save(reservation);
+        reservation.setId(id);
+        reservationRepository.save(reservation);
       }
     } catch (DataAccessException e) {
       logger.error(e.getMessage());
     }
 
-    return updatedReservation;
+    return reservation;
   }
 
   /**
