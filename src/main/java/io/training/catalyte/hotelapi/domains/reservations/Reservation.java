@@ -2,9 +2,7 @@ package io.training.catalyte.hotelapi.domains.reservations;
 
 import static io.training.catalyte.hotelapi.constants.StringConstants.GUEST_EMAIL_VALIDATION_ERROR;
 import static io.training.catalyte.hotelapi.constants.StringConstants.NUMBER_OF_NIGHTS_POSITIVE_VALIDATION_ERROR;
-import static io.training.catalyte.hotelapi.constants.StringConstants.POSITIVE_ID_VALIDATION_ERROR;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,21 +19,9 @@ public class Reservation {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  /*
-    postgres throws up if you try to name a column "user", so we map it to hotelUser in the db but
-    we keep the field as user on requests / responses
-   */
-  @Column(name = "hotelUser")
-  @NotBlank
-  private String user;
-
   @NotBlank
   @Email(message = GUEST_EMAIL_VALIDATION_ERROR)
   private String guestEmail;
-
-  @Positive(message = POSITIVE_ID_VALIDATION_ERROR)
-  @NotNull
-  private Long roomTypeId;
 
   @ValidDate()
   private String checkInDate;
@@ -47,11 +33,9 @@ public class Reservation {
   public Reservation() {
   }
 
-  public Reservation(String user, String guestEmail, Long roomTypeId, String checkInDate,
+  public Reservation(String guestEmail, Long roomTypeId, String checkInDate,
       int numberOfNights) {
-    this.user = user;
     this.guestEmail = guestEmail;
-    this.roomTypeId = roomTypeId;
     this.checkInDate = checkInDate;
     this.numberOfNights = numberOfNights;
   }
@@ -64,28 +48,12 @@ public class Reservation {
     this.id = id;
   }
 
-  public String getUser() {
-    return user;
-  }
-
-  public void setUser(String user) {
-    this.user = user;
-  }
-
   public String getGuestEmail() {
     return guestEmail;
   }
 
   public void setGuestEmail(String guestEmail) {
     this.guestEmail = guestEmail;
-  }
-
-  public Long getRoomTypeId() {
-    return roomTypeId;
-  }
-
-  public void setRoomTypeId(Long roomId) {
-    this.roomTypeId = roomId;
   }
 
   public String getCheckInDate() {

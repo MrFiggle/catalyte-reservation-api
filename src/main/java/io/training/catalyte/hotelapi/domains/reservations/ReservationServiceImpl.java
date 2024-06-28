@@ -17,7 +17,12 @@ public class ReservationServiceImpl implements ReservationService {
 
   private final Logger logger = LoggerFactory.getLogger(ReservationServiceImpl.class);
 
-  @Autowired private ReservationRepository reservationRepository;
+  ReservationRepository reservationRepository;
+
+  @Autowired
+  public ReservationServiceImpl(ReservationRepository reservationRepository) {
+    this.reservationRepository = reservationRepository;
+  }
 
   /**
    * Retrieves all reservations from the database.
