@@ -26,7 +26,8 @@ public class ReservationController {
 
   private final Logger logger = LoggerFactory.getLogger(ReservationController.class);
 
-  @Autowired private ReservationService reservationService;
+  @Autowired
+  private ReservationService reservationService;
 
   /**
    * This method retrieves all reservations from the database
@@ -67,11 +68,11 @@ public class ReservationController {
   @ApiOperation("Add a single reservation by the reservation info provided")
   @ApiResponses(
       value = {
-        @ApiResponse(code = 201, message = "Created", response = Reservation.class),
-        @ApiResponse(
-            code = 400,
-            message = "Invalid request",
-            response = ResponseStatusException.class)
+          @ApiResponse(code = 201, message = "Created", response = Reservation.class),
+          @ApiResponse(
+              code = 400,
+              message = "Invalid request",
+              response = ResponseStatusException.class)
       })
   public ResponseEntity<Reservation> createReservation(
       @Valid @RequestBody Reservation reservation) {
@@ -83,7 +84,7 @@ public class ReservationController {
   /**
    * This method updates an existing reservation record
    *
-   * @param id of the reservation to be updated
+   * @param id          of the reservation to be updated
    * @param reservation updated reservation information
    * @return updated reservation and 200 status code
    * @throws Exception
@@ -92,11 +93,11 @@ public class ReservationController {
   @ApiOperation("Update a single reservation by id and reservation info provided")
   @ApiResponses(
       value = {
-        @ApiResponse(code = 200, message = "OK", response = Reservation.class),
-        @ApiResponse(
-            code = 400,
-            message = "Invalid request",
-            response = ResponseStatusException.class)
+          @ApiResponse(code = 200, message = "OK", response = Reservation.class),
+          @ApiResponse(
+              code = 400,
+              message = "Invalid request",
+              response = ResponseStatusException.class)
       })
   public ResponseEntity<Reservation> updateReservation(
       @PathVariable Long id, @Valid @RequestBody Reservation reservation) {
@@ -116,11 +117,11 @@ public class ReservationController {
   @ApiOperation("Delete a single reservation by id")
   @ApiResponses(
       value = {
-        @ApiResponse(code = 204, message = "No Content", response = Reservation.class),
-        @ApiResponse(
-            code = 400,
-            message = "Invalid request",
-            response = ResponseStatusException.class)
+          @ApiResponse(code = 204, message = "No Content", response = Reservation.class),
+          @ApiResponse(
+              code = 400,
+              message = "Invalid request",
+              response = ResponseStatusException.class)
       })
   public ResponseEntity<Reservation> deleteReservation(@PathVariable Long id) {
     logger.info(" Delete request received");

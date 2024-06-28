@@ -89,7 +89,7 @@ public class ReservationServiceImpl implements ReservationService {
   /**
    * Updates a specified record in the database.
    *
-   * @param id the id of the record to update
+   * @param id          the id of the record to update
    * @param reservation the provided reservation information to persist
    * @return the updated reservation
    */
