@@ -9,7 +9,7 @@ server:
 
 datasource:
    platform: postgres
-   url: jdbc:postgresql://localhost:5432/hotelapi
+   url: jdbc:postgresql://localhost:5433
    username: postgres
    password: root
    driverClassName: org.postgresql.Driver
