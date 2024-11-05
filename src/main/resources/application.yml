@@ -13,7 +13,7 @@ spring:
       ddl-auto: create-drop
   datasource:
     platform: postgres
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://catalyte-reservation-db.cjqak8yeav1x.us-east-1.rds.amazonaws.com
     username: postgres
     password: uNuSNtE9QpxpepeS
     driverClassName: org.postgresql.Driver
